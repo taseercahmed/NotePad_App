@@ -1,11 +1,11 @@
 package com.notepadapp.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-
 import com.notepadapp.Adapter.NoteAdapter
+import com.notepadapp.Database.DatabaseAccess
 import com.notepadapp.Listener.Listener
 import com.notepadapp.Model.Note
 import com.notepadapp.R
 import com.notepadapp.ViewModel.NoteViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(),
     Listener {
@@ -32,11 +33,17 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+//        setSupportActionBar(toolbar)
 
         noteAdapter = NoteAdapter(applicationContext, ArrayList<Note>(), this)
         initialiseRecyclerView()
-
+        val databaseAccess = DatabaseAccess.getInstance(this)
+        databaseAccess.open()
+        val quotes = databaseAccess.surahNames
+        quotes.forEach {
+            Log.e("1122334surah",it)
+        }
+        databaseAccess.close()
 
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         noteViewModel.getCardsData(this)?.observe(this, Observer {

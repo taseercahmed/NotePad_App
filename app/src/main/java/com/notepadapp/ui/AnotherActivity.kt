@@ -29,7 +29,6 @@ class AnotherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_another)
 
-        setSupportActionBar(toolbar1)
         noteViewModel= NoteViewModel()
         val upArrow=resources.getDrawable(R.drawable.arrow)
 

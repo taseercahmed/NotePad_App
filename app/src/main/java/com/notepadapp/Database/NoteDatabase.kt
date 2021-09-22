@@ -28,7 +28,8 @@ abstract class NoteDatabase : RoomDatabase()
                     if(instance == null)
                     {
                         instance= Room.databaseBuilder(context,NoteDatabase::class.java,
-                            DATABASE_NAME).build()
+                            DATABASE_NAME)
+                            .build()
                     }
                 }
             }
