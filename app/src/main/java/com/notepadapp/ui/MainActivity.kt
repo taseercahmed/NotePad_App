@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var noteList: ArrayList<Note>
     private lateinit var searchView:SearchView
+    private lateinit var dbaccess:DatabaseAccess
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +40,13 @@ class MainActivity : AppCompatActivity(),
         initialiseRecyclerView()
         val databaseAccess = DatabaseAccess.getInstance(this)
         databaseAccess.open()
-        val quotes = databaseAccess.surahNames
-        quotes.forEach {
-            Log.e("1122334surah",it)
+        databaseAccess.duas.forEach {
+            Log.i("112233dua",it+" dua")
         }
+//        val quotes = databaseAccess.surahNames
+//        quotes.forEach {
+//            Log.e("1122334surah",it)
+//        }
         databaseAccess.close()
 
         noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
@@ -50,6 +54,9 @@ class MainActivity : AppCompatActivity(),
             noteAdapter.setData(it as ArrayList<Note>)
             noteList = it
         })
+
+        //dbaccess=DatabaseAccess.getInstance(applicationContext)
+
 
         floatingActionButton.setOnClickListener {
             val intent = Intent(this, AnotherActivity::class.java)

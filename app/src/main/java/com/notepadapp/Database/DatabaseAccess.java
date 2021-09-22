@@ -50,5 +50,17 @@ public class DatabaseAccess {
         cursor.close();
         return list;
     }
+    public List<String> getDuas() {
+        List<String> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT * FROM dua", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(3));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
 }
 
